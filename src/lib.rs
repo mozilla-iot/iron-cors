@@ -87,7 +87,7 @@ impl AfterMiddleware for CORS {
         }
 
         if req.method == Method::Options {
-            return Ok(Response::with(Status::Ok));
+            res.status = Some(Status::Ok);
         }
 
         Ok(res)
