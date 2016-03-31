@@ -9,6 +9,7 @@ use iron::{ AfterMiddleware, headers};
 use iron::method::Method;
 use iron::method::Method::*;
 use iron::prelude::*;
+use iron::status::Status;
 use unicase::UniCase;
 
 pub type CORSEndpoint = (Vec<Method>, String);
@@ -84,6 +85,11 @@ impl AfterMiddleware for CORS {
         if self.is_allowed(req) {
             CORS::add_headers(&mut res);
         }
+
+        if req.method == Method::Options {
+            return Ok(Response::with(Status::Ok));
+        }
+
         Ok(res)
     }
 
