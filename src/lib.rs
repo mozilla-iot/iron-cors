@@ -82,12 +82,12 @@ impl CORS {
 impl AfterMiddleware for CORS {
     fn after(&self, req: &mut Request, mut res: Response)
         -> IronResult<Response> {
-        if self.is_allowed(req) {
-            CORS::add_headers(&mut res);
+        if req.method == Method::Options {
+            res = Response::with(Status::Ok);
         }
 
-        if req.method == Method::Options {
-            res.status = Some(Status::Ok);
+        if self.is_allowed(req) {
+            CORS::add_headers(&mut res);
         }
 
         Ok(res)
