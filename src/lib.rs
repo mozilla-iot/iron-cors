@@ -74,7 +74,7 @@ impl CORS {
             ]
         ));
         res.headers.set(headers::AccessControlAllowMethods(
-            vec![Get, Post, Put]
+            vec![Get, Post, Put, Delete]
         ));
     }
 }
