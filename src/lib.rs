@@ -46,13 +46,13 @@ impl CORS {
                 path[0..].split('/').collect()
             };
 
-            if path.len() != req.url.path.len() {
+            if path.len() != req.url.path().len() {
                 continue;
             }
 
-            for (i, req_path) in req.url.path.iter().enumerate() {
+            for (i, req_path) in req.url.path().iter().enumerate() {
                 is_cors_endpoint = false;
-                if req_path != path[i] && !path[i].starts_with(':') {
+                if *req_path != path[i] && !path[i].starts_with(':') {
                     break;
                 }
                 is_cors_endpoint = true;
